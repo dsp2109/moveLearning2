@@ -46,7 +46,7 @@ class PokerHistEnv(gym.Env):
         self.observation_space = spaces.Box(low, high)
         #DP, https://github.com/openai/gym/blob/master/gym/spaces/box.py
         
-        self.mongodb_cursor = MongoClient("mongodb://ubuntu:password@34.209.152.176/poker").poker.dataframes.find().batch_size(1000)
+        self.mongodb_cursor = MongoClient("mongodb://ubuntu:password@34.209.152.176/poker").poker.dataframes.find().batch_size(3000)
         #MongoClient('localhost', 27017).poker.dataframes.find()
         self.hand_db_counter = -1
 
@@ -56,8 +56,9 @@ class PokerHistEnv(gym.Env):
         self.two_eps = ({},{})
         self.which_ep = 0
         self.raw_hand = {}
-        self.action_dict = {"fold":0, "check_call_0": 1, "bet 0.1":2, "bet 0.25": 3,\
-        "bet 0.4": 4, "bet 0.55": 5, "bet 0.7": 6,"bet 1":7, "bet 1.5":8,"bet 2.5":9, "bet all":10}
+        self.action_dict = {"fold":0, "check_call": 1, "bet 0.2":2, "bet 0.375": 3,\
+        "bet 0.55": 4, "in pot 0.75": 5, "bet 1": 6,"bet 1.5":7, "bet 2":8,"bet 2.5":9,\
+        "bet 3":10, "bet 5":11}
         self.action_dict = dict(zip(self.action_dict.values(), self.action_dict.keys()))
         print(self.action_dict)
 
