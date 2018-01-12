@@ -88,11 +88,6 @@ def create_entire_state(stepList, cardList, result):
 	all_state = np.copy(blank_state)
 	layer_depth = []
 
-	for i in range(len(cardList)):
-		if cardList[i][2] == 5:
-			cardList[i][2] == 12
-		elif cardList[i][2] > 5:
-			cardList[i][2] -= 1
 		#TODO: logparser error - bad fix
 
 	#build entire_state which contains all action, then build player 0 episode and player 1 episode

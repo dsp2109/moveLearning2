@@ -46,7 +46,7 @@ class PokerHistEnv(gym.Env):
         self.observation_space = spaces.Box(low, high)
         #DP, https://github.com/openai/gym/blob/master/gym/spaces/box.py
         
-        self.mongodb_cursor = MongoClient("mongodb://ubuntu:password@34.209.152.176/poker").poker.dataframes.find().batch_size(3000)
+        self.mongodb_cursor = MongoClient('localhost', 27017).poker.parsed_handLog.find().batch_size(2000)
         #MongoClient('localhost', 27017).poker.dataframes.find()
         self.hand_db_counter = -1
 

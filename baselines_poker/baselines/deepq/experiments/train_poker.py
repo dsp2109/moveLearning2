@@ -37,11 +37,12 @@ def main():
         env,
         q_func=model_test,
         lr=1e-3,
-        max_timesteps=55000, #15000000
+        max_timesteps= 60000000, #15000000
         buffer_size=50000,
         exploration_fraction=0.1,
         exploration_final_eps=0.02,
-        print_freq=1000,
+        train_freq=16,
+        print_freq=5000,
         callback=None
     )
     print("Saving model to poker_model.pkl")

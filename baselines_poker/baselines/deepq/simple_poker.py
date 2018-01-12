@@ -87,7 +87,7 @@ def pok_learn(env,
           exploration_final_eps=0.02,
           train_freq=4,
           batch_size=32,
-          print_freq=1000,
+          print_freq=5000,
           checkpoint_freq=10000,
           learning_starts=5000,
           gamma=1.0,
@@ -213,10 +213,11 @@ def pok_learn(env,
     U.initialize()
     update_target()
 
-    episode_rewards = [0.0]
+    # episode_rewards = [0.0]
     td_error_list = []
     saved_mean_reward = None
     saved_time_step = None
+    num_episodes = 0
     # saved_td_error = None
     obs = env.reset() #ok
     reset = True
@@ -257,10 +258,10 @@ def pok_learn(env,
             replay_buffer.add(obs, action, rew, new_obs, float(done))
             obs = new_obs
 
-            episode_rewards[-1] += rew
+            # episode_rewards[-1] += rew
             if done:
                 obs = env.reset()
-                episode_rewards.append(0.0)
+                num_episodes += 1
                 reset = True
                 
             if t > learning_starts and t % train_freq == 0:
@@ -299,7 +300,6 @@ def pok_learn(env,
             #     mean_1000batch_tderror = -1
                 
 
-            num_episodes = len(episode_rewards)
             if done and print_freq is not None and num_episodes % print_freq == 0:
                 logger.record_tabular("steps", t)
                 logger.record_tabular("episodes", num_episodes)
@@ -310,7 +310,7 @@ def pok_learn(env,
                 logger.dump_tabular()
 
             if (checkpoint_freq is not None and t > learning_starts and
-                    num_episodes > 100 and (t in [10000, 50000, 100000, 1000000] or (t % 5000000 == 0))):
+                    num_episodes > 100 and (t in [10000, 50000, 100000] or (t % 500000 == 0))):
                 # if saved_td_error is None or mean_1000batch_tderror < saved_td_error: #mean_100ep_reward > saved_mean_reward:
                 #     if print_freq is not None:
                 #         logger.log("Saving model due to new avg trailing td error: {} -> {}".format( #DP
@@ -321,9 +321,12 @@ def pok_learn(env,
                 #     saved_td_error = mean_1000batch_tderror
                 saved_time_step = t
                 logger.log("Saving model due to checkpoint step: {} ".format(t))
-                U.save_state(model_file)
+                if t in [1000000, 2000000, 3000000, 4000000, 6000000, 10000000] and t != 0:
+                    U.save_state(os.path.join(td, "model_step", str(t)))
+                else:
+                    U.save_state(model_file)
                 model_saved = True
-                saved_mean_reward = round(np.mean(episode_rewards[-501:-1]), 1)
+                # saved_mean_reward = round(np.mean(episode_rewards[-501:-1]), 1)
                 # saved_td_error = mean_1000batch_tderror
 
         U.save_state(model_file)
@@ -331,7 +334,7 @@ def pok_learn(env,
 
         if model_saved:
             if print_freq is not None:
-                logger.log("Restored model with mean reward and time step: {} and {}".format(saved_mean_reward, saved_time_step))
+                logger.log("Restored model at time step: {}".format(saved_time_step))
             U.load_state(model_file)
         
     return act

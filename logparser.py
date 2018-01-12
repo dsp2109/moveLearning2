@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import constants
+from baselines_poker.baselines.deepq.experiments import constants
 import pandas,re
 import pymongo
 from pymongo import MongoClient
