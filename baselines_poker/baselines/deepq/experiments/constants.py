@@ -54,6 +54,8 @@ action_choices = {"fold":0, "check_call": 1, "bet 0.2":2, "bet 0.375": 3,
 "bet 3":10, "bet 5":11} #how to teach bot not to bet an amount the becomes a call? 
 
 chip_divider = 10
+reward_divider = 2000
+mean_reward = 75
 
 width_names = {"betting_round":0, "raise_round":1, "player":2, "suit0":3, \
 "suit1":4, "suit2":5, "suit3":6,"action_choice":7,\

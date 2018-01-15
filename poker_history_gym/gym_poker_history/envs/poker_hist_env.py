@@ -46,7 +46,7 @@ class PokerHistEnv(gym.Env):
         self.observation_space = spaces.Box(low, high)
         #DP, https://github.com/openai/gym/blob/master/gym/spaces/box.py
         
-        self.mongodb_cursor = MongoClient('localhost', 27017).poker.parsed_handLog.find().batch_size(2000)
+        self.mongodb_cursor = MongoClient('localhost', 27017).poker.parsed_handLog.find().batch_size(6000)
         #MongoClient('localhost', 27017).poker.dataframes.find()
         self.hand_db_counter = -1
 
@@ -174,7 +174,7 @@ class PokerHistEnv(gym.Env):
             print("Reward from next act: ", str(self._get_reward()))
             print("Done: ", str(self.is_hand_over))
             print("#"*20)
-            print("Action taken in hand log: ", str(self.curr_action), self.action_dict[self.curr_action], "\n")
+            print("Action taken in hand log: ", str(self._get_action()), self.action_dict[self._get_action()], "\n")
 
         except Exception as e:
             print("tried to render but exception ", str(e))

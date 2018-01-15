@@ -5,13 +5,13 @@ import gym
 from baselines import deepq
 
 
-def callback(lcl, glb):
-    # stop training if reward exceeds 199
-    is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
-    return is_solved
+# def callback(lcl, glb):
+#     # stop training if reward exceeds 199
+#     is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
+#     return is_solved
 
-def conv_hwSize_out(length, filter_width, padding, stride):
-    return (length - filter_width + 2*padding)/stride + 1
+# def conv_hwSize_out(length, filter_width, padding, stride):
+#     return (length - filter_width + 2*padding)/stride + 1
 
 def main():
 
@@ -27,7 +27,7 @@ def main():
     #
 
     model_test = deepq.models.cnn_to_mlp(
-    convs=[(32, 3, 1), (32, 3,1), (64, 2, 2), (64, 3, 1)], #[(32, 8, 4), (64, 4, 2), (64, 3, 1)]
+    convs=[(32, 3, 1), (32, 3,1), (32, 2, 1), (64,3,2), (64, 3, 1), (64,3,1), (128, 3,2)], #[(32, 8, 4), (64, 4, 2), (64, 3, 1)]
     hiddens=[2048],
     dueling=True, #bool(args.dueling)
     layer_norm=True,

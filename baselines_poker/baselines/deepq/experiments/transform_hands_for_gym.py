@@ -58,7 +58,9 @@ def create_player_state_layer(betting_round, raising_round, player, cards, actio
 	for card in cards:
 		layer[card[0],card[1]+3] = 1
 
-	if action:
+	if action == -1:
+		raise ValueError("invalid action")
+	else:
 		#set the action in this layer
 		layer[action, width_names["action_choice"]] = 1
 	layer[:,width_names["size_of_action"]] = binarize_num(int(size_of_action/chip_divider))
@@ -207,9 +209,9 @@ def run_iteration(hand_log):
 	try:
 		result = create_entire_state(hand_log["steps"], hand_log["cards"], hand_log["result"])
 		epis_p0 = {"obs":result[0][0], "acts":result[1][0],\
-		"reward": result[2][0], "done": result[3][0], "num_steps": result[4][0]}
+		"reward": (result[2][0]-constants.reward_mean)/constants.reward_divider, "done": result[3][0], "num_steps": result[4][0]}
 		epis_p1 = {"obs":result[0][1], "acts":result[1][1],\
-		"reward": result[2][1], "done": result[3][1], "num_steps": result[4][1]}
+		"reward": (result[2][1]-constants.reward_mean)/constants.reward_divider, "done": result[3][1], "num_steps": result[4][1]}
 
 		return epis_p0, epis_p1
 	except Exception as e:

@@ -272,6 +272,7 @@ def pok_learn(env,
                 else:
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
+                    import pdb; pdb.set_trace()
 
                 # #DP EDIT
                 # print("at step t " + str(t))
@@ -321,10 +322,7 @@ def pok_learn(env,
                 #     saved_td_error = mean_1000batch_tderror
                 saved_time_step = t
                 logger.log("Saving model due to checkpoint step: {} ".format(t))
-                if t in [1000000, 2000000, 3000000, 4000000, 6000000, 10000000] and t != 0:
-                    U.save_state(os.path.join(td, "model_step", str(t)))
-                else:
-                    U.save_state(model_file)
+                U.save_state(model_file)
                 model_saved = True
                 # saved_mean_reward = round(np.mean(episode_rewards[-501:-1]), 1)
                 # saved_td_error = mean_1000batch_tderror
