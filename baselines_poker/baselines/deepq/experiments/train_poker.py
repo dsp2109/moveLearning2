@@ -28,7 +28,7 @@ def main():
 
     model_test = deepq.models.cnn_to_mlp(
     convs=[(32, 3, 1), (32, 3,1), (32, 2, 1), (64,3,2), (64, 3, 1), (64,3,1), (128, 3,2)], #[(32, 8, 4), (64, 4, 2), (64, 3, 1)]
-    hiddens=[2048],
+    hiddens=[256],
     dueling=True, #bool(args.dueling)
     layer_norm=True,
     )
@@ -36,12 +36,12 @@ def main():
     act = deepq.pok_learn(
         env,
         q_func=model_test,
-        lr=1e-3,
-        max_timesteps= 60000000, #15000000
+        lr=5e-4,
+        max_timesteps= 10000001, #60000000
         buffer_size=50000,
         exploration_fraction=0.1,
         exploration_final_eps=0.02,
-        train_freq=16,
+        train_freq=6,
         print_freq=5000,
         callback=None
     )

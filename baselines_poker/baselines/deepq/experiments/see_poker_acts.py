@@ -24,7 +24,6 @@ def main():
             episode_rew += rew # if the hand states are random this has no meaning.
             rL.append(rew)
         print("Episode reward", episode_rew)
-    import pdb; pdb.set_trace()
     print("Mean and stdev of reward is: {}, {}".format(np.mean(rL), np.std(rL)))
 
 
