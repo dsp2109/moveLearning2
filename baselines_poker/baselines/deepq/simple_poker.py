@@ -85,13 +85,13 @@ def pok_learn(env,
           buffer_size=50000,
           exploration_fraction=0.1,
           exploration_final_eps=0.02,
-          train_freq=4,
+          train_freq=8,
           batch_size=32,
           print_freq=5000,
           checkpoint_freq=10000,
           learning_starts=5000,
-          gamma=1.0,
-          target_network_update_freq=500,
+          gamma=0.99,
+          target_network_update_freq=2000,
           prioritized_replay=False,
           prioritized_replay_alpha=0.6,
           prioritized_replay_beta0=0.4,
@@ -225,6 +225,7 @@ def pok_learn(env,
         model_saved = False
         model_file = os.path.join(td, "model")
         mean_1000batch_tderror = -1
+       
         for t in range(max_timesteps):
             if callback is not None:
                 if callback(locals(), globals()): #DP this somehow uses exploration
@@ -272,7 +273,7 @@ def pok_learn(env,
                 else:
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
-                    import pdb; pdb.set_trace()
+                    # import pdb; pdb.set_trace()
 
                 # #DP EDIT
                 # print("at step t " + str(t))
@@ -324,6 +325,7 @@ def pok_learn(env,
                 logger.log("Saving model due to checkpoint step: {} ".format(t))
                 U.save_state(model_file)
                 model_saved = True
+                # import pdb; pdb.set_trace()
                 # saved_mean_reward = round(np.mean(episode_rewards[-501:-1]), 1)
                 # saved_td_error = mean_1000batch_tderror
 

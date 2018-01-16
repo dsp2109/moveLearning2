@@ -9,7 +9,7 @@ def _mlp(hiddens, inpt, num_actions, scope, reuse=False, layer_norm=False):
             out = layers.fully_connected(out, num_outputs=hidden, activation_fn=None)
             if layer_norm:
                 out = layers.layer_norm(out, center=True, scale=True)
-            out = tf.nn.leakyrelu(out)
+            out = tf.nn.leaky_relu(out)
         q_out = layers.fully_connected(out, num_outputs=num_actions, activation_fn=None)
         return q_out
 
