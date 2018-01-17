@@ -266,7 +266,7 @@ def learn(env,
                 # print("printing obses_t, actions, rewards, obses_tp1, dones, weights")
                 # print(obses_t, actions, rewards, obses_tp1, dones, weights)
                 # print("%"*30)    
-                import pdb; pdb.set_trace()
+                # import pdb; pdb.set_trace()
                 td_errors = train(obses_t, actions, rewards, obses_tp1, dones, weights)
                 if prioritized_replay:
                     new_priorities = np.abs(td_errors) + prioritized_replay_eps
@@ -293,6 +293,7 @@ def learn(env,
                         logger.log("Saving model due to mean reward increase: {} -> {}".format(
                                    saved_mean_reward, mean_100ep_reward))
                     U.save_state(model_file)
+                    import pdb; pdb.set_trace()
                     model_saved = True
                     saved_mean_reward = mean_100ep_reward
         if model_saved:

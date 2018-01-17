@@ -4,8 +4,18 @@ import gym
 from baselines import deepq
 import numpy as np
 
+# import zipfile
+# import cloudpickle
+# import baselines.common.tf_util as U
+# import os
+
 def main():
     env = gym.make("PokerHistory-v0")
+    
+    # td = "/tmp/tmpugaszyfi"
+    # model_file = os.path.join(td, "model")
+    # U.load_state(model_file)
+    # act.save("poker_model_test.pkl")
     act = deepq.load("poker_model.pkl")
 
     rL = []

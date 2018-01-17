@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import constants
+from baselines.deepq.experiments import constants
 #import pymongo
 # import pprint
 # from bson.binary import Binary

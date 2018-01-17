@@ -37,7 +37,7 @@ class PokerHistEnv(gym.Env):
         self.is_hand_over = False
         self.is_hand_won = False 
 
-        self.action_space = spaces.Discrete(12)
+        self.action_space = spaces.Discrete(10)
         # see dict: constants.act_array
         
         # Observation is the game state and prior actions
@@ -56,9 +56,8 @@ class PokerHistEnv(gym.Env):
         self.two_eps = ({},{})
         self.which_ep = 0
         self.raw_hand = {}
-        self.action_dict = {"fold":0, "check_call": 1, "bet 0.2":2, "bet 0.375": 3,\
-        "bet 0.55": 4, "in pot 0.75": 5, "bet 1": 6,"bet 1.5":7, "bet 2":8,"bet 2.5":9,\
-        "bet 3":10, "bet 5":11}
+        self.action_dict = {"fold":0, "check_call": 1, "bet 0.2":2, "bet 0.375": 3, \
+        "bet 0.55": 4, "in pot 0.75": 5, "bet 1": 6,"bet 1.5":7, "bet 2.25":8,"bet 3":9}
         self.action_dict = dict(zip(self.action_dict.values(), self.action_dict.keys()))
         print(self.action_dict)
 
@@ -168,10 +167,11 @@ class PokerHistEnv(gym.Env):
             print("episode rewards and actions: ")
             print(list(self.two_eps[self.which_ep]["reward"]))
             print(list(self.two_eps[self.which_ep]["acts"]))
+            print(list(self.two_eps[self.which_ep]["done"]))
             print("#"*20)
             print("Player: ", str(self.which_ep))
             print("Step: ", str(self.curr_step))
-            print("Reward from next act: ", str(self._get_reward()))
+            print("Reward from act: ", str(self._get_reward()))
             print("Done: ", str(self.is_hand_over))
             print("#"*20)
             print("Action taken in hand log: ", str(self._get_action()), self.action_dict[self._get_action()], "\n")

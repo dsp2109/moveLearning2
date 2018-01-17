@@ -50,8 +50,7 @@ raising_round = 1
 
 act_array = [0.2, 0.375,0.55,0.75,1,1.5,2,2.5,3,5]
 action_choices = {"fold":0, "check_call": 1, "bet 0.2":2, "bet 0.375": 3,
-"bet 0.55": 4, "in pot 0.75": 5, "bet 1": 6,"bet 1.5":7, "bet 2":8,"bet 2.5":9,
-"bet 3":10, "bet 5":11} #how to teach bot not to bet an amount the becomes a call? 
+"bet 0.55": 4, "in pot 0.75": 5, "bet 1": 6,"bet 1.5":7, "bet 2.25":8,"bet 3":9} #how to teach bot not to bet an amount the becomes a call? 
 
 chip_divider = 10
 reward_divider = 20000

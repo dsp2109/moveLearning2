@@ -40,14 +40,14 @@ def _cnn_to_mlp(convs, hiddens, dueling, inpt, num_actions, scope, reuse=False, 
                                            num_outputs=num_outputs,
                                            kernel_size=kernel_size,
                                            stride=stride,
-                                           activation_fn=tf.nn.leaky_relu,
-                                           normalizer_fn = layers.batch_norm
+                                           activation_fn=tf.nn.leaky_relu
                                            )
         conv_out = layers.flatten(out)
         with tf.variable_scope("action_value"):
             action_out = conv_out
             for hidden in hiddens:
-                action_out = layers.fully_connected(action_out, num_outputs=hidden, activation_fn= None)
+                action_out = layers.fully_connected(action_out, num_outputs=hidden, activation_fn= None,
+                                                    weights_regularizer = layers.l2_regularizer(0.0005))
                 if layer_norm:
                     action_out = layers.layer_norm(action_out, center=True, scale=True)
                 action_out = tf.nn.leaky_relu(action_out)
@@ -58,7 +58,7 @@ def _cnn_to_mlp(convs, hiddens, dueling, inpt, num_actions, scope, reuse=False, 
                 state_out = conv_out
                 for hidden in hiddens:
                     state_out = layers.fully_connected(state_out, num_outputs=hidden, \
-                        activation_fn= None)
+                        activation_fn= None, weights_regularizer = layers.l2_regularizer(0.0005))
                     if layer_norm:
                         state_out = layers.layer_norm(state_out, center=True, scale=True)
                     state_out = tf.nn.leaky_relu(state_out)
