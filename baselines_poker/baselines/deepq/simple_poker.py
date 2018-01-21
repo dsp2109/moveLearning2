@@ -181,7 +181,7 @@ def pok_learn(env,
         num_actions=env.action_space.n, #ok
         optimizer=tf.train.AdamOptimizer(learning_rate=lr),
         gamma=gamma,
-        grad_norm_clipping=10,
+        grad_norm_clipping=None,
         param_noise=param_noise
     )
 

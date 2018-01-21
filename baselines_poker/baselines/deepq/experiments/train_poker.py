@@ -37,7 +37,7 @@ def main():
         env,
         q_func=model_test,
         lr=1e-4,
-        max_timesteps= 25000001, #60000000
+        max_timesteps= 2000001, #60000000
         buffer_size=50000,
         exploration_fraction=0.1,
         exploration_final_eps=0.02,
